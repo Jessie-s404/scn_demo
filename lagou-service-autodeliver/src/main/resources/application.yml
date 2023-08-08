@@ -1,0 +1,29 @@
+server:
+  port: 8090
+#注册到Eureka服务中心
+eureka:
+  client:
+    service-url:
+        defaultZone: http://LagouCloudEurekaServerA:8761/eureka,http://LagouCloudEurekaServerB:8762/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}:@project.version@
+
+spring:
+  application:
+    name: lagou-service-autodeliver
+
+#lagou-service-resume:
+#  ribbon:
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #负载均衡策略
+
+#springboot中暴露健康检查的端点接口
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  #暴露健康接口的细节
+  endpoint:
+   health:
+    show-details: ALWAYS

@@ -1,0 +1,16 @@
+server:
+  port: 9001
+Spring:
+  application:
+    name: lagou-cloud-hystrix-turbine
+eureka:
+  client:
+    service-url:
+      defaultZone: http://LagouCloudEurekaServerA:8761/eureka,http://LagouCloudEurekaServerB:8762/eureka
+      instance:
+        #使用ip注册，否则会使用主机名注册
+        prefer-ip-address: true
+        instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}:@project.version@
+turbine:
+  app-config: lagou-service-autodeliver
+  cluster-name-expression: "'default'"
